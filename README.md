@@ -18,7 +18,7 @@ to test using the following endpoints, their corresponding requirements and resp
 1. ``http://localhost:3000/tasks ``
 purpose : get all tasks
 method : GET
-requirement : nothin
+requirement : nothing
 
 response : json = 
 ``{
@@ -32,7 +32,7 @@ response : json =
     }``
 
   2. http://localhost:3000/tasks 
-purpose : get all tasks
+purpose : Adding a task
 method : POST
 requirement : json =  ``{
         "id": 1,
@@ -58,19 +58,90 @@ response : json =  ``{
     }``
 
 
-3. ``http://localhost:3000/tasks``
-purpose : get all tasks
-method : GET
-requirement : nothin
-
-response : json =  ``{
+3. ``http://localhost:3000/tasks/id``
+purpose : Updating tasks by the person who assigned the task
+method : PATCH
+requirement : son =  ``{
         "id": 1,
         "title": "test",
         "priority": "High",
-        "status": "Pending",
         "assignedTo": "002",
-        "assignedBy": "1",
-        "createdAt": "2026-03-16T23:00:00.000Z"
+        "assignedBy": "1"
+    }``
+
+response : json =  ``{
+        
+    "success": true,
+    "message": "Task updated successfully",
+    "data": {
+        "id": "1",
+        "title": "Complete assessment",
+        "priority": "High",
+        "assignedTo": "test",
+        "assignedBy": "Gab"
+    }
+
+    }``
+
+5. ``http://localhost:3000/tasks/id/status``
+purpose : Updating tasks by the person who the task is assigned to
+method : PATCH
+requirement : son =  ``{
+        "id": 1,
+        "status": "In Progress",
+        "assignedTo": "002",
+        "assignedBy": "1"
+    }``
+
+response : json =  ``{
+        "success": true,
+    "message": "Task status updated successfully",
+    "data": {
+        "id": "1",
+        "status": "In Progress",
+        "assignedTo": "test"
+    }``
+
+6. ``http://localhost:3000/tasks/id/unassign``
+purpose : Unassigning a tasks by the person who assigned the task to another person
+method : PATCH
+requirement : son =  ``{
+        "id": 1,
+        "assignedTo": "002",
+        "assignedBy": "gab"
+    }``
+
+response : json =  ``{
+        
+    "success": true,
+    "message": "Task unassigned successfully",
+    "data": {
+        "id": "1",
+        "assignedTo": "test",
+        "assignedBy": "gab"
+    }
+
+    
+7. ``http://localhost:3000/tasks/id``
+purpose : Deleting a task by the person who created the task
+method : DELETE
+requirement : son =  ``{
+        "id": 1,
+        "assignedTo": "002",
+        "assignedBy": "gab"
+    }``
+
+response : json =  ``{
+        
+   
+    "success": true,
+    "message": "Task deleted successfully",
+    "data": {
+        "id": "1",
+        "assignedBy": "gab"
+    }
+
+
     }``
 
 
